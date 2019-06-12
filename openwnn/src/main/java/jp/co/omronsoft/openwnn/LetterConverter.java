@@ -22,7 +22,6 @@ import android.content.SharedPreferences;
  * The interface of pre-converter for input string used by OpenWnn.
  * <br>
  * This is a simple converter for Romaji-to-Kana input, Hangul input, etc.
- * Before converting the input string by {@link WnnEngine}, {@link OpenWnn} invokes this converter.
  *
  * @author Copyright (C) 2009 OMRON SOFTWARE CO., LTD.  All Rights Reserved.
  */
@@ -31,8 +30,8 @@ public interface LetterConverter {
      * Convert the layer #0 text(pressed key sequence) to layer #1 text(pre converted string).
      * <br>
      * This conversion is used for converting some key input to a character.
-     * For example, Latin capital letter conversion <it>(ex: "'"+"a" to "&#x00E1;")</it>",
-     * Romaji-to-Kana conversion in Japanese <it>(ex: "w"+"a" to "&#x308F;")</it>, 
+     * For example, Latin capital letter conversion (ex: "'"+"a" to "&#x00E1;")",
+     * Romaji-to-Kana conversion in Japanese,
      * Hangul conversion in Korean.
      *
      * @param text      The text data includes input sequence(layer #0) and output area(layer #1)

@@ -18,7 +18,7 @@ package jp.co.omronsoft.openwnn;
 
 
 /**
- * The interface of dictionary searcher used by {@link OpenWnn}.
+ * The interface of dictionary searcher
  *
  * @author Copyright (C) 2008-2009, OMRON SOFTWARE CO., LTD.  All Rights Reserved.
  */
@@ -60,7 +60,6 @@ public interface WnnDictionary {
      * Predefined approximate pattern set (for Japanese 12-key keyboard).
      *
      * This pattern includes the standard rules for Japanese multi-tap 12-key keyboard.
-     * ex. "&#x306F;" to "&#x3070;"/"&#x3071;", "&#x3064;" to "&#x3063;"/"&#x3065;"
      */
     int APPROX_PATTERN_JAJP_12KEY_NORMAL        = 4;
 
@@ -184,13 +183,11 @@ public interface WnnDictionary {
      * </p>
      * <p>
      * The supported combination of parameters is:
-     * <table>
-     * <th><td>Search Mode</td><td>Sort Order</td><td>Ambiguous Search</td></th>
-     * <tr><td>exact matching</td><td>frequency descending</td><td>no</td></tr>
-     * <tr><td>prefix matching</td><td>frequency descending</td><td>no</td></tr>
-     * <tr><td>prefix matching</td><td>frequency descending</td><td>yes</td></tr>
-     * <tr><td>prefix matching</td><td>character code ascending</td><td>no</td></tr>
-     * </table>
+     * Search   Mode        Sort        OrderAmbiguous  Search
+     * exact    matching    frequency   descending      no
+     * prefix   matching    frequency   descending      no
+     * prefix   matching    frequency   descending      yes
+     * prefix   matching    character   code ascending  no
      * </p>
      *
      * @param operation     The search operation
@@ -218,6 +215,13 @@ public interface WnnDictionary {
      * the {@code stroke} and the {@code candidate} information. If the prediction dictionary
      * for part of speech is set to use, the previous word must contain the {@code partOfSpeech} information.
      *
+     * @param operation     The search operation
+     * @see WnnDictionary#SEARCH_EXACT
+     * @see WnnDictionary#SEARCH_PREFIX
+     * @param order         The sort order
+     * @see WnnDictionary#ORDER_BY_FREQUENCY
+     * @see WnnDictionary#ORDER_BY_KEY
+     * @param keyString     The key string
      * @param wnnWord       The previous word
      * @see WnnDictionary#searchWord
      * 
@@ -241,7 +245,7 @@ public interface WnnDictionary {
      * It returns a word information from top of the {@code searchWord()}'s result.
      * To get all word's information of the result, call this method repeatedly until it returns null.
      *
-     * @param length    >0 if only the result of specified length is retrieved; 0 if no condition exist
+     * @param length    &#x3C;0 if only the result of specified length is retrieved; 0 if no condition exist
      * @return          An instance of WnnWord; null if no result or an error occurs.
      */
     WnnWord getNextWord(int length);
