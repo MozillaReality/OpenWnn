@@ -94,7 +94,7 @@ public class ComposingText {
      * Get a {@link StrSegment} at the position specified.
      *
      * @param layer     Layer
-     * @param pos       Position (<0 : the tail segment)
+     * @param pos       Position (&#x3C;0 : the tail segment)
      *
      * @return          The segment; {@code null} if error occurs.
      */

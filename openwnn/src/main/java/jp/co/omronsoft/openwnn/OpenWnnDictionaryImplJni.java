@@ -186,18 +186,9 @@ public class OpenWnnDictionaryImplJni {
      * The specified work area and the loaded dictionary library is free.
      *
      * @param work      The internal work area
-     * @return          0 if processing is successful; <0 if an error occur
+     * @return          0 if processing is successful; &#x3C;0 if an error occur
      */
     public static final native int freeWnnWork( long work );
-
-    /**
-     * Clear all dictionary information.
-     *
-     * @see jp.co.omronsoft.openwnn.WnnDictionary#clearDictionary
-     * @param work      The internal work area
-     * @return          0 if processing is successful; <0 if an error occur
-     */
-    public static final native int clearDictionaryParameters( long work );
 
     /**
      * Set a dictionary information.
@@ -207,7 +198,7 @@ public class OpenWnnDictionaryImplJni {
      * @param index     The index of dictionary
      * @param base      The base frequency or -1
      * @param high      The maximum frequency or -1
-     * @return           0 if processing is successful; <0 otherwise
+     * @return           0 if processing is successful; &#x3C;0 otherwise
      */
     public static final native int setDictionaryParameter( long work, int index, int base, int high );
 
@@ -223,7 +214,7 @@ public class OpenWnnDictionaryImplJni {
      * @see jp.co.omronsoft.openwnn.WnnDictionary#ORDER_BY_FREQUENCY
      * @see jp.co.omronsoft.openwnn.WnnDictionary#ORDER_BY_KEY
      * @param keyString     The key string
-     * @return              0 if no result is found; 1 if a result is found; <0 if an error occur
+     * @return              0 if no result is found; 1 if a result is found; &#x3C;0 if an error occur
      *
      */
     public static final native int searchWord(long work, int operation, int order, String keyString );
@@ -235,8 +226,8 @@ public class OpenWnnDictionaryImplJni {
      *
      * @see jp.co.omronsoft.openwnn.WnnDictionary#getNextWord
      * @param work      The internal work area
-     * @param length    >0 if only the result of specified length is retrieved; 0 if no condition exist
-     * @return          0 if no result is retrieved; >0 if a result is retrieved; <0 if an error occur
+     * @param length    &#x3E;0 if only the result of specified length is retrieved; 0 if no condition exist
+     * @return          0 if no result is retrieved; &#x3E;0 if a result is retrieved; &#x3C;0 if an error occur
      */
     public static final native int getNextWord( long work, int length );
 
@@ -298,7 +289,7 @@ public class OpenWnnDictionaryImplJni {
      * @param work      The internal work area
      * @param src       The string (before)
      * @param dst       The string (after)
-     * @return          0 if processing is successful; <0 if an error occur
+     * @return          0 if processing is successful; &#x3C;0 if an error occur
      */
     public static final native int setApproxPattern( long work, String src, String dst );
 
@@ -312,7 +303,7 @@ public class OpenWnnDictionaryImplJni {
      * @see jp.co.omronsoft.openwnn.WnnDictionary#APPROX_PATTERN_EN_TOLOWER
      * @see jp.co.omronsoft.openwnn.WnnDictionary#APPROX_PATTERN_EN_QWERTY_NEAR
      * @see jp.co.omronsoft.openwnn.WnnDictionary#APPROX_PATTERN_EN_QWERTY_NEAR_UPPER
-     * @return                  0 if processing is successful; <0 if an error occur
+     * @return                  0 if processing is successful; &#x3C;0 if an error occur
      */
     public static final native int setApproxPattern( long work, int approxPattern );
 
@@ -336,7 +327,7 @@ public class OpenWnnDictionaryImplJni {
      *
      * @param work          The internal work area
      * @param partOfSpeech  The part of speech
-     * @return              0 if processing is successful; <0 if an error occur
+     * @return              0 if processing is successful; &#x3C;0 if an error occur
      *
      */
     public static final native int setLeftPartOfSpeech( long work, int partOfSpeech );
@@ -345,7 +336,7 @@ public class OpenWnnDictionaryImplJni {
      *
      * @param work          The internal work area
      * @param partOfSpeech  The part of speech
-     * @return              0 if processing is successful; <0 if an error occur
+     * @return              0 if processing is successful; &#x3C;0 if an error occur
      *
      */
     public static final native int setRightPartOfSpeech( long work, int partOfSpeech );
@@ -355,7 +346,7 @@ public class OpenWnnDictionaryImplJni {
      *
      * @param work          The internal work area
      * @param stroke        The key string
-     * @return              0 if processing is successful; <0 if an error occur
+     * @return              0 if processing is successful; &#x3C;0 if an error occur
      *
      */
     public static final native int setStroke( long work, String stroke );
@@ -364,7 +355,7 @@ public class OpenWnnDictionaryImplJni {
      *
      * @param work          The internal work area
      * @param candidate     The candidate string
-     * @return              0 if processing is successful; <0 if an error occur
+     * @return              0 if processing is successful; &#x3C;0 if an error occur
      *
      */
     public static final native int setCandidate( long work, String candidate );
@@ -373,7 +364,7 @@ public class OpenWnnDictionaryImplJni {
      * Set the previous word information from the current word information.
      *
      * @param work          The internal work area
-     * @return              0 if processing is successful; <0 if an error occur
+     * @return              0 if processing is successful; &#x3C;0 if an error occur
      */
     public static final native int selectWord( long work );
 
@@ -389,12 +380,13 @@ public class OpenWnnDictionaryImplJni {
     /**
      * Retrieve the number of the part of speeches at left side.
      *
+     * @param work                  The internal work area
      * @return              The number
      */
     public static final native int getNumberOfLeftPOS( long work );
     /**
      * Retrieve the number of the part of speeches at right side.
-     *
+     * @param work                  The internal work area
      * @return              The number
      */
     public static final native int getNumberOfRightPOS( long work );
@@ -404,7 +396,7 @@ public class OpenWnnDictionaryImplJni {
      *
      * @param work          The internal work area
      * @param type          The type of a part of speech
-     * @return              0 if type is not found; <0 if an error occur; >0 The part of speech
+     * @return              0 if type is not found; &#x3C;0 if an error occur; &#x3E;0 The part of speech
      */
     public static final native int getLeftPartOfSpeechSpecifiedType( long work, int type );
 
@@ -413,7 +405,7 @@ public class OpenWnnDictionaryImplJni {
      *
      * @param work          The internal work area
      * @param type          The type of a part of speech
-     * @return              0 if type is not found; <0 if an error occur; >0 The part of speech
+     * @return              0 if type is not found; &#x3C;0 if an error occur; &#x3E;0 The part of speech
      * @see OpenWnnDictionaryImplJni#POS_TYPE_V1
      * @see OpenWnnDictionaryImplJni#POS_TYPE_V2
      * @see OpenWnnDictionaryImplJni#POS_TYPE_V3
