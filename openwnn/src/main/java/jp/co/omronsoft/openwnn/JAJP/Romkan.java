@@ -16,7 +16,10 @@
 
 package jp.co.omronsoft.openwnn.JAJP;
 
-import jp.co.omronsoft.openwnn.*;
+import jp.co.omronsoft.openwnn.ComposingText;
+import jp.co.omronsoft.openwnn.LetterConverter;
+import jp.co.omronsoft.openwnn.StrSegment;
+
 import java.util.HashMap;
 import android.content.SharedPreferences;
 

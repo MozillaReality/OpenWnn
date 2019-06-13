@@ -10,7 +10,7 @@ ext {
 
     publishedGroupId = 'jp.co.omronsoft.openwnn'
     artifact = 'openwnn'
-    libraryVersion = '1.3.6'
+    libraryVersion = '1.3.7'
 
     libraryDescription = 'OpenWnn fork'
     siteUrl = 'https://github.com/MozillaReality/OpenWnn'

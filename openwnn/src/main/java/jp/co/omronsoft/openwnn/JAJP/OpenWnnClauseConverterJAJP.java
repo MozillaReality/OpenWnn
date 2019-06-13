@@ -16,7 +16,13 @@
 
 package jp.co.omronsoft.openwnn.JAJP;
 
-import jp.co.omronsoft.openwnn.*;
+import jp.co.omronsoft.openwnn.CandidateFilter;
+import jp.co.omronsoft.openwnn.WnnClause;
+import jp.co.omronsoft.openwnn.WnnDictionary;
+import jp.co.omronsoft.openwnn.WnnPOS;
+import jp.co.omronsoft.openwnn.WnnSentence;
+import jp.co.omronsoft.openwnn.WnnWord;
+
 import java.util.*;
 
 /**
@@ -90,7 +96,8 @@ public class OpenWnnClauseConverterJAJP {
 
         /* clear dictionary settings */
         mDictionary = dict;
-        dict.clearApproxPattern();
+        dict.clearDictionary();
+        dict.clearApproxPattern();                    
 
         /* clear work areas */
         mIndepWordBag.clear();
@@ -346,7 +353,7 @@ public class OpenWnnClauseConverterJAJP {
         } else {
             if (!all) {
                 /* reserve only the best clause */
-                WnnClause best = clauseList.get(0);
+                WnnClause best = (WnnClause)clauseList.get(0);
                 if (best.frequency < clause.frequency) {
                     clauseList.set(0, clause);
                     return true;
@@ -406,7 +413,8 @@ public class OpenWnnClauseConverterJAJP {
 
         /* set dictionaries */
         WnnDictionary dict = mDictionary;
-        dict.clearApproxPattern();
+        dict.clearDictionary();
+        dict.clearApproxPattern();                    
         dict.setDictionary(6, 400, 500);
 
         for (int start = input.length() - 1; start >= 0; start--) {
@@ -465,7 +473,8 @@ public class OpenWnnClauseConverterJAJP {
         if (words == null) {
             /* set dictionaries */
             WnnDictionary dict = mDictionary;
-            dict.clearApproxPattern();
+            dict.clearDictionary();
+            dict.clearApproxPattern();                    
             dict.setDictionary(4, 0, 10);   
             dict.setDictionary(5, 400, 500);
             dict.setDictionary(WnnDictionary.INDEX_USER_DICTIONARY, FREQ_USER, FREQ_USER); 
@@ -491,7 +500,7 @@ public class OpenWnnClauseConverterJAJP {
                         Iterator<WnnWord> list = words.iterator();
                         boolean found = false;
                         while (list.hasNext()) {
-                            WnnWord w = list.next();
+                            WnnWord w = (WnnWord)list.next();
                                 if (w.partOfSpeech.right == word.partOfSpeech.right) {
                                     found = true;
                                     break;

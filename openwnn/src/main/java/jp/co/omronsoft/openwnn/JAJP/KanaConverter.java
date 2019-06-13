@@ -532,8 +532,45 @@ public class KanaConverter {
             list.add(new WnnWord(mStringBuff.toString(), inputHiragana, mPosDefault));
         }
 
-        createPseudoCandidateListForQwerty(inputHiragana, inputRomaji);
+        if (keyBoardMode == OpenWnnEngineJAJP.KEYBOARD_QWERTY) {
+            /* Create pseudo candidates for Qwerty keyboard */
+            createPseudoCandidateListForQwerty(inputHiragana, inputRomaji);
+        } else {
+            /* Create pseudo candidates for 12key */
 
+        	/* Create pseudo candidates for half width numeric */
+            if (createCandidateString(inputHiragana, mHalfNumericMap, mStringBuff)) {
+                String convHanSuuji = mStringBuff.toString();
+                String convNumComma = convertNumber(convHanSuuji);
+                list.add(new WnnWord(convHanSuuji, inputHiragana, mPosNumber));
+                if (convNumComma != null) {
+                    list.add(new WnnWord(convNumComma, inputHiragana, mPosNumber));
+                }
+            }
+
+            /* Create pseudo candidates for full width numeric */
+            if (createCandidateString(inputHiragana, mFullNumericMap, mStringBuff)) {
+                list.add(new WnnWord(mStringBuff.toString(), inputHiragana, mPosNumber));
+            }
+
+            /* Create pseudo candidates for half width alphabet */
+            if (createCandidateString(inputHiragana, mHalfAlphabetMap, mStringBuff)) {
+                String convHanEiji = mStringBuff.toString();
+                String convHanEijiLower = convHanEiji.toLowerCase();
+                list.add(new WnnWord(convHanEijiLower, inputHiragana, mPosSymbol));
+                list.add(new WnnWord(convertCaps(convHanEijiLower), inputHiragana, mPosSymbol));
+                list.add(new WnnWord(convHanEiji, inputHiragana, mPosSymbol));
+            }
+
+            /* Create pseudo candidates for full width alphabet */
+            if (createCandidateString(inputHiragana, mFullAlphabetMap, mStringBuff)) {
+                String convZenEiji = mStringBuff.toString();
+                String convZenEijiLower = convZenEiji.toLowerCase(Locale.JAPAN);
+                list.add(new WnnWord(convZenEijiLower, inputHiragana, mPosSymbol));
+                list.add(new WnnWord(convertCaps(convZenEijiLower), inputHiragana, mPosSymbol));
+                list.add(new WnnWord(convZenEiji, inputHiragana, mPosSymbol));
+            }
+        }
         return list;
     }
 

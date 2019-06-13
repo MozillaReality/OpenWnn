@@ -19,6 +19,7 @@ package jp.co.omronsoft.openwnn.JAJP;
 import android.content.SharedPreferences;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -76,7 +77,7 @@ public class OpenWnnEngineJAJP implements WnnEngine {
     public static final int MAX_OUTPUT_LENGTH = 50;
     /** Limitation of predicted candidates */
     public static final int PREDICT_LIMIT = 100;
-
+   
     /** OpenWnn dictionary */
     private WnnDictionary mDictionaryJP;
 
@@ -122,23 +123,34 @@ public class OpenWnnEngineJAJP implements WnnEngine {
     /** The candidate filter */
     private CandidateFilter mFilter = null;
 
+    public OpenWnnEngineJAJP() {
+        this(null);
+    }
+
     /**
      * Constructor
      * 
+     * @param writableDictionaryName    Writable dictionary file name(null if not use)
      */
-    public OpenWnnEngineJAJP() {
+    public OpenWnnEngineJAJP(String writableDictionaryName) {
         /* load Japanese dictionary library */
-        mDictionaryJP = new OpenWnnDictionaryImpl("libwnnjpndic.so" );
+        mDictionaryJP = new OpenWnnDictionaryImpl(
+                "libwnnjpndic.so",
+                writableDictionaryName );
         if (!mDictionaryJP.isActive()) {
-            mDictionaryJP = new OpenWnnDictionaryImpl("/system/lib/libwnnjpndic.so" );
+            mDictionaryJP = new OpenWnnDictionaryImpl(
+                    "/system/lib/libwnnjpndic.so",
+                    writableDictionaryName );
         }
 
         /* clear dictionary settings */
+        mDictionaryJP.clearDictionary();
         mDictionaryJP.clearApproxPattern();
+        mDictionaryJP.setInUseState(false);
 
         /* work buffers */
-        mConvResult = new ArrayList<>();
-        mCandTable = new HashMap<>();
+        mConvResult = new ArrayList<WnnWord>();
+        mCandTable = new HashMap<String, WnnWord>();
 
         /* converters */
         mClauseConverter = new OpenWnnClauseConverterJAJP();
@@ -152,6 +164,8 @@ public class OpenWnnEngineJAJP implements WnnEngine {
      */
     private void setDictionaryForPrediction(int strlen) {
         WnnDictionary dict = mDictionaryJP;
+
+        dict.clearDictionary();
 
         if (mDictType != DIC_LANG_JP_EISUKANA) {
             dict.clearApproxPattern();
@@ -243,7 +257,7 @@ public class OpenWnnEngineJAJP implements WnnEngine {
         if (index >= mConvResult.size()) {
             return null;
         }
-        return mConvResult.get(index);
+        return (WnnWord)mConvResult.get(index);
     }
 
     /**
@@ -350,17 +364,17 @@ public class OpenWnnEngineJAJP implements WnnEngine {
     /***********************************************************************
      * WnnEngine's interface
      **********************************************************************/
-    /** @see WnnEngine#init */
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#init */
     public void init() {
         clearPreviousWord();
         mClauseConverter.setDictionary(mDictionaryJP);
         mKanaConverter.setDictionary(mDictionaryJP);
     }
 
-    /** @see WnnEngine#close */
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#close */
     public void close() {}
 
-    /** @see WnnEngine#predict */
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#predict */
     public int predict(ComposingText text, int minLen, int maxLen) {
         clearCandidates();
         if (text == null) { return 0; }
@@ -370,6 +384,9 @@ public class OpenWnnEngineJAJP implements WnnEngine {
 
         /* set dictionaries by the length of input */
         setDictionaryForPrediction(len);
+        
+        /* search dictionaries */
+        mDictionaryJP.setInUseState( true );
 
         if (len == 0) {
             /* search by previously selected word */
@@ -389,13 +406,15 @@ public class OpenWnnEngineJAJP implements WnnEngine {
         }
     }
 
-    /** @see WnnEngine#convert */
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#convert */
     public int convert(ComposingText text) {
         clearCandidates();
 
         if (text == null) {
             return 0;
         }
+
+        mDictionaryJP.setInUseState( true );
 
         int cursor = text.getCursor(ComposingText.LAYER1);
         String input;
@@ -432,7 +451,7 @@ public class OpenWnnEngineJAJP implements WnnEngine {
         int idx = 0;
         Iterator<WnnClause> it = sentence.elements.iterator();
         while(it.hasNext()) {
-            WnnClause clause = it.next();
+            WnnClause clause = (WnnClause)it.next();
             int len = clause.stroke.length();
             ss[idx] = new StrSegmentClause(clause, pos, pos + len - 1);
             pos += len;
@@ -446,13 +465,19 @@ public class OpenWnnEngineJAJP implements WnnEngine {
         return 0;
     }
     
-    /** @see WnnEngine#searchWords */
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#searchWords */
     public int searchWords(String key) {
         clearCandidates();
         return 0;
     }
 
-    /** @see WnnEngine#getNextCandidate */
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#searchWords */
+    public int searchWords(WnnWord word) {
+        clearCandidates();
+        return 0;
+    }
+
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#getNextCandidate */
     public WnnWord getNextCandidate() {
         if (mInputHiragana == null) {
             return null;
@@ -464,15 +489,69 @@ public class OpenWnnEngineJAJP implements WnnEngine {
         return word;
     }
 
-    /** @see WnnEngine#setPreferences */
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#learn */
+    public boolean learn(WnnWord word) {
+        int ret = -1;
+        if (word.partOfSpeech.right == 0) {
+            word.partOfSpeech = mDictionaryJP.getPOS(WnnDictionary.POS_TYPE_MEISI);
+        }
+
+        WnnDictionary dict = mDictionaryJP;
+        if (word instanceof WnnSentence) {
+            Iterator<WnnClause> clauses = ((WnnSentence)word).elements.iterator();
+            while (clauses.hasNext()) {
+                WnnWord wd = clauses.next();
+                if (mPreviousWord != null) {
+                    ret = dict.learnWord(wd, mPreviousWord);
+                } else {
+                    ret = dict.learnWord(wd);
+                }
+                mPreviousWord = wd;
+                if (ret != 0) {
+                    break;
+                }
+            }
+        } else {
+            if (mPreviousWord != null) {
+                ret = dict.learnWord(word, mPreviousWord);
+            } else {
+                ret = dict.learnWord(word);
+            }
+            mPreviousWord = word;
+            mClauseConverter.setDictionary(dict);
+        }
+
+        return (ret == 0);
+    }
+
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#addWord */
+    public int addWord(WnnWord word) {
+        mDictionaryJP.setInUseState( true );
+        if (word.partOfSpeech.right == 0) {
+            word.partOfSpeech = mDictionaryJP.getPOS(WnnDictionary.POS_TYPE_MEISI);
+        }
+        mDictionaryJP.addWordToUserDictionary(word);
+        mDictionaryJP.setInUseState( false );
+        return 0;
+    }
+
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#deleteWord */
+    public boolean deleteWord(WnnWord word) {
+        mDictionaryJP.setInUseState( true );
+        mDictionaryJP.removeWordFromUserDictionary(word);
+        mDictionaryJP.setInUseState( false );
+        return false;
+    }
+
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#setPreferences */
     public void setPreferences(SharedPreferences pref) {}
 
-    /** @see WnnEngine#breakSequence */
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#breakSequence */
     public void breakSequence()  {
         clearPreviousWord();
     }
 
-    /** @see WnnEngine#makeCandidateListOf */
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#makeCandidateListOf */
     public int makeCandidateListOf(int clausePosition)  {
         clearCandidates();
 
@@ -487,4 +566,48 @@ public class OpenWnnEngineJAJP implements WnnEngine {
         return 1;
     }
 
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#initializeDictionary */
+    public boolean initializeDictionary(int dictionary)  {
+        switch( dictionary ) {
+        case WnnEngine.DICTIONARY_TYPE_LEARN:
+            mDictionaryJP.setInUseState( true );
+            mDictionaryJP.clearLearnDictionary();
+            mDictionaryJP.setInUseState( false );
+            return true;
+
+        case WnnEngine.DICTIONARY_TYPE_USER:
+            mDictionaryJP.setInUseState( true );
+            mDictionaryJP.clearUserDictionary();
+            mDictionaryJP.setInUseState( false );
+            return true;
+        }
+        return false;
+    }
+
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#initializeDictionary */
+    public boolean initializeDictionary(int dictionary, int type) {
+        return initializeDictionary(dictionary);
+    }
+    
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#getUserDictionaryWords */
+    public WnnWord[] getUserDictionaryWords( ) {
+        /* get words in the user dictionary */
+        mDictionaryJP.setInUseState(true);
+        WnnWord[] result = mDictionaryJP.getUserDictionaryWords( );
+        mDictionaryJP.setInUseState(false);
+
+        /* sort the array of words */
+        Arrays.sort(result, new WnnWordComparator());
+
+        return result;
+    }
+
+    /* {@link WnnWord} comparator for listing up words in the user dictionary */
+    private class WnnWordComparator implements java.util.Comparator {
+        public int compare(Object object1, Object object2) {
+            WnnWord wnnWord1 = (WnnWord) object1;
+            WnnWord wnnWord2 = (WnnWord) object2;
+            return wnnWord1.stroke.compareTo(wnnWord2.stroke);
+        }
+    }
 }

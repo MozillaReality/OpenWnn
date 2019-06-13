@@ -32,14 +32,14 @@ public interface WnnDictionary {
      * This pattern includes the rules for ambiguous searching capital letters from small letters.<br>
      * ex. "a" to "A", "b" to "B", ... , "z" to "Z"
      */
-    int APPROX_PATTERN_EN_TOUPPER               = 0;
+    public static final int APPROX_PATTERN_EN_TOUPPER               = 0;
     /**
      * Predefined approximate pattern set (small letters from capital letters).
      *
      * This pattern includes the rules for ambiguous searching small letters from capital letters.<br>
      * ex. "A" to "a", "B" to "b", ... , "Z" to "z"
      */
-    int APPROX_PATTERN_EN_TOLOWER               = 1;
+    public static final int APPROX_PATTERN_EN_TOLOWER               = 1;
     /**
      * Predefined approximate pattern set (QWERTY neighbor keys).
      *
@@ -47,7 +47,7 @@ public interface WnnDictionary {
      * Only alphabet letters are defined; numerical or symbol letters are not defined as the rules.<br>
      * ex. "a" to "q"/"w"/"s"/"z", "b" to "v"/"g"/"h"/"n", ... ,"z" to "a"/"s"/"x"
      */
-    int APPROX_PATTERN_EN_QWERTY_NEAR           = 2;
+    public static final int APPROX_PATTERN_EN_QWERTY_NEAR           = 2;
     /**
      * Predefined approximate pattern set (QWERTY neighbor keys/capital letters).
      *
@@ -55,58 +55,76 @@ public interface WnnDictionary {
      * Only alphabet letters are defined; numerical or symbol letters are not defined as the rules.<br>
      * ex. "a" to "Q"/"W"/"S"/"Z", "b" to "V"/"G"/"H"/"N", ... ,"z" to "A"/"S"/"X"
      */
-    int APPROX_PATTERN_EN_QWERTY_NEAR_UPPER     = 3;
+    public static final int APPROX_PATTERN_EN_QWERTY_NEAR_UPPER     = 3;
     /**
      * Predefined approximate pattern set (for Japanese 12-key keyboard).
      *
      * This pattern includes the standard rules for Japanese multi-tap 12-key keyboard.
      */
-    int APPROX_PATTERN_JAJP_12KEY_NORMAL        = 4;
+    public static final int APPROX_PATTERN_JAJP_12KEY_NORMAL        = 4;
 
     /** Search operation mode (exact matching). */
-    int SEARCH_EXACT                            = 0;
+    public static final int SEARCH_EXACT                            = 0;
     /** Search operation mode (prefix matching). */
-    int SEARCH_PREFIX                           = 1;
+    public static final int SEARCH_PREFIX                           = 1;
     /** Search operation mode (link search). */
-    int SEARCH_LINK                             = 2;
+    public static final int SEARCH_LINK                             = 2;
 
     /** Sort order (frequency in descending). */
-    int ORDER_BY_FREQUENCY                      = 0;
+    public static final int ORDER_BY_FREQUENCY                      = 0;
     /** Sort order (character code of key string in ascending). */
-    int ORDER_BY_KEY                            = 1;
+    public static final int ORDER_BY_KEY                            = 1;
 
     /** Type of a part of speech (V1) */
-    int POS_TYPE_V1                             = 0;
+    public static final int POS_TYPE_V1                             = 0;
     /** Type of a part of speech (V2) */
-    int POS_TYPE_V2                             = 1;
+    public static final int POS_TYPE_V2                             = 1;
     /** Type of a part of speech (V3) */
-    int POS_TYPE_V3                             = 2;
+    public static final int POS_TYPE_V3                             = 2;
     /** Type of a part of speech (Top of sentence) */
-    int POS_TYPE_BUNTOU                         = 3;
+    public static final int POS_TYPE_BUNTOU                         = 3;
     /** Type of a part of speech (Single Chinese character) */
-    int POS_TYPE_TANKANJI                       = 4;
+    public static final int POS_TYPE_TANKANJI                       = 4;
     /** Type of a part of speech (Numeric) */
-    int POS_TYPE_SUUJI                          = 5;
+    public static final int POS_TYPE_SUUJI                          = 5;
     /** Type of a part of speech (Noun) */
-    int POS_TYPE_MEISI                          = 6;
+    public static final int POS_TYPE_MEISI                          = 6;
     /** Type of a part of speech (Person's name) */
-    int POS_TYPE_JINMEI                         = 7;
+    public static final int POS_TYPE_JINMEI                         = 7;
     /** Type of a part of speech (Place name) */
-    int POS_TYPE_CHIMEI                         = 8;
+    public static final int POS_TYPE_CHIMEI                         = 8;
     /** Type of a part of speech (Symbol) */
-    int POS_TYPE_KIGOU                          = 9;
+    public static final int POS_TYPE_KIGOU                          = 9;
 
     /** Index of the user dictionary for {@link #setDictionary(int, int, int)} */
-    int INDEX_USER_DICTIONARY                   = -1;
+    public static final int INDEX_USER_DICTIONARY                   = -1;
     /** Index of the learn dictionary for {@link #setDictionary(int, int, int)} */
-    int INDEX_LEARN_DICTIONARY                  = -2;
+    public static final int INDEX_LEARN_DICTIONARY                  = -2;
 
     
     /**
      * Whether this dictionary module is active.
      * @return {@code true} if this dictionary module is active; {@code false} if not.
      */
-    boolean isActive();
+    public boolean isActive();
+    
+    /**
+     * Set "in use" state.
+     *
+     * When the flag set true, the user dictionary is locked.
+     *
+     * @param flag      {@code true} if the user dictionary is locked; {@code false} if the user dictionary is unlocked.
+     */
+    public void setInUseState(boolean flag);
+
+    /**
+     * Clear all dictionary settings.
+     *
+     * All the dictionaries are set to be unused.
+     *
+     * @return          0 if success; minus value(error code) if fail.
+     */
+    public int clearDictionary();
 
     /**
      * Sets a dictionary information for using specified dictionary.
@@ -126,14 +144,14 @@ public interface WnnDictionary {
      * @param high      The maximum frequency for the dictionary
      * @return          0 if success; minus value(error code) if fail.
      */
-    int setDictionary(int index, int base, int high);
+    public int setDictionary(int index, int base, int high);
 
     /**
      * Clears approximate patterns.
      *
      * This clears all approximate search patterns in the search condition.
      */
-    void clearApproxPattern();
+    public void clearApproxPattern();
 
     /**
      * Sets a approximate pattern.
@@ -148,7 +166,7 @@ public interface WnnDictionary {
      * @param dst       Characters replace to
      * @return          0 if success; minus value(error code) if fail.
      */
-    int setApproxPattern(String src, String dst);
+    public int setApproxPattern(String src, String dst);
 
     /**
      * Sets a predefined approximate pattern.
@@ -157,14 +175,14 @@ public interface WnnDictionary {
      * {@code approxPattern} are added to the search condition.
      *
      * @param approxPattern     A predefined approximate pattern set
-     * @see WnnDictionary#APPROX_PATTERN_EN_TOUPPER
-     * @see WnnDictionary#APPROX_PATTERN_EN_TOLOWER
-     * @see WnnDictionary#APPROX_PATTERN_EN_QWERTY_NEAR
-     * @see WnnDictionary#APPROX_PATTERN_EN_QWERTY_NEAR_UPPER
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#APPROX_PATTERN_EN_TOUPPER
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#APPROX_PATTERN_EN_TOLOWER
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#APPROX_PATTERN_EN_QWERTY_NEAR
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#APPROX_PATTERN_EN_QWERTY_NEAR_UPPER
      *
      * @return                  0 if success; minus value(error code) if fail.
      */
-    int setApproxPattern(int approxPattern);
+    public int setApproxPattern(int approxPattern);
 
     /**
      * Search words from dictionaries with specified conditions.
@@ -183,26 +201,27 @@ public interface WnnDictionary {
      * </p>
      * <p>
      * The supported combination of parameters is:
-     * Search   Mode        Sort        OrderAmbiguous  Search
-     * exact    matching    frequency   descending      no
-     * prefix   matching    frequency   descending      no
-     * prefix   matching    frequency   descending      yes
-     * prefix   matching    character   code ascending  no
+     *
+     * Search Mode      Sort        Order           Ambiguous Search
+     * exact matching   frequency   descending      no
+     * prefix matching  frequency   descending      no
+     * prefix matching  frequency   descending      yes
+     * prefix matching  character   code ascending  no
      * </p>
      *
      * @param operation     The search operation
-     * @see WnnDictionary#SEARCH_EXACT
-     * @see WnnDictionary#SEARCH_PREFIX
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#SEARCH_EXACT
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#SEARCH_PREFIX
      * @param order         The sort order
-     * @see WnnDictionary#ORDER_BY_FREQUENCY
-     * @see WnnDictionary#ORDER_BY_KEY
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#ORDER_BY_FREQUENCY
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#ORDER_BY_KEY
      * @param keyString     The key string
      *
-     * @see WnnDictionary#getNextWord
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#getNextWord
      *
      * @return              0 if no word is found; 1 if some words found; minus value if a error occurs.
      */
-    int searchWord(int operation, int order, String keyString);
+    public int searchWord(int operation, int order, String keyString);
 
     /**
      * Search words from dictionaries with specified conditions and previous word.
@@ -216,18 +235,18 @@ public interface WnnDictionary {
      * for part of speech is set to use, the previous word must contain the {@code partOfSpeech} information.
      *
      * @param operation     The search operation
-     * @see WnnDictionary#SEARCH_EXACT
-     * @see WnnDictionary#SEARCH_PREFIX
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#SEARCH_EXACT
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#SEARCH_PREFIX
      * @param order         The sort order
-     * @see WnnDictionary#ORDER_BY_FREQUENCY
-     * @see WnnDictionary#ORDER_BY_KEY
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#ORDER_BY_FREQUENCY
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#ORDER_BY_KEY
      * @param keyString     The key string
      * @param wnnWord       The previous word
-     * @see WnnDictionary#searchWord
-     * 
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#searchWord
+     *
      * @return              0 if no word is found; 1 if some words found; minus value if a error occurs.
      */
-    int searchWord(int operation, int order, String keyString, WnnWord wnnWord);
+    public int searchWord(int operation, int order, String keyString, WnnWord wnnWord);
 
     /**
      * Retrieve a searched word information.
@@ -237,7 +256,7 @@ public interface WnnDictionary {
      *
      * @return              An instance of WnnWord; null if no result or an error occurs.
      */
-    WnnWord getNextWord();
+    public WnnWord getNextWord();
 
     /**
      * Retrieve a searched word information with condition of length.
@@ -245,17 +264,24 @@ public interface WnnDictionary {
      * It returns a word information from top of the {@code searchWord()}'s result.
      * To get all word's information of the result, call this method repeatedly until it returns null.
      *
-     * @param length    &#x3C;0 if only the result of specified length is retrieved; 0 if no condition exist
+     * @param length    &#x3E;0 if only the result of specified length is retrieved; 0 if no condition exist
      * @return          An instance of WnnWord; null if no result or an error occurs.
      */
-    WnnWord getNextWord(int length);
+    public WnnWord getNextWord(int length);
+
+    /**
+     * Retrieve all word in the user dictionary.
+     *
+     * @return          The array of WnnWord objects.
+     */
+    public WnnWord[] getUserDictionaryWords();
 
     /**
      * Retrieve the connect matrix.
      *
      * @return          The array of the connect matrix; null if an error occurs.
      */
-    byte[][] getConnectMatrix();
+    public byte[][] getConnectMatrix();
 
     /**
      * Retrieve the part of speech information specified POS type.
@@ -263,18 +289,77 @@ public interface WnnDictionary {
      * @param type      The type of a part of speech
      * @return          The part of speech information; null if invalid type is specified or  an error occurs.
      *
-     * @see WnnDictionary#POS_TYPE_V1
-     * @see WnnDictionary#POS_TYPE_V2
-     * @see WnnDictionary#POS_TYPE_V3
-     * @see WnnDictionary#POS_TYPE_BUNTOU
-     * @see WnnDictionary#POS_TYPE_TANKANJI
-     * @see WnnDictionary#POS_TYPE_SUUJI
-     * @see WnnDictionary#POS_TYPE_MEISI
-     * @see WnnDictionary#POS_TYPE_JINMEI
-     * @see WnnDictionary#POS_TYPE_CHIMEI
-     * @see WnnDictionary#POS_TYPE_KIGOU
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_V1
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_V2
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_V3
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_BUNTOU
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_TANKANJI
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_SUUJI
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_MEISI
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_JINMEI
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_CHIMEI
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_KIGOU
     */
-    WnnPOS getPOS(int type);
+    public WnnPOS getPOS(int type);
 
+    /**
+     * Clear the user dictionary.
+     * 
+     * @return      0 if no error occur; &#x3C;0 if an error occur
+     */
+    public int clearUserDictionary();
+    /**
+     * Clear the learn dictionary.
+     * 
+     * @return      0 if no error occur; &#x3C;0 if an error occur
+     */
+    public int clearLearnDictionary();
+
+    /**
+     * Add the words to user dictionary.
+     *
+     * @param word      The array of word
+     * @return          0 if no error occur; &#x3C;0 if an error occur
+     */
+    public int addWordToUserDictionary(WnnWord[] word);
+    /**
+     * Add the word to user dictionary.
+     *
+     * @param word      The word
+     * @return          0 if no error occur; &#x3C;0 if an error occur
+     */
+    public int addWordToUserDictionary(WnnWord word);
+
+    /**
+     * Remove the words from user dictionary.
+     *
+     * @param word      The array of word
+     * @return          0 if no error occur; &#x3C;0 if an error occur
+     */
+    public int removeWordFromUserDictionary(WnnWord[] word);
+    /**
+     * Remove the word from user dictionary.
+     *
+     * @param word      The word
+     * @return          0 if no error occur; &#x3C;0 if an error occur
+     */
+    public int removeWordFromUserDictionary(WnnWord word);
+
+    /**
+     * Learn the word.
+     *
+     * @param word      The word for learning
+     * @return          0 if no error occur; &#x3C;0 if an error occur
+     */
+    public int learnWord(WnnWord word);
+
+    /**
+     * Learn the word with connection.
+     *
+     * @param word              The word for learning
+     * @param previousWord      The word for link learning
+     * @return                  0 if no error occur; &#x3C;0 if an error occur
+     */
+    public int learnWord(WnnWord word, WnnWord previousWord);
 }
 

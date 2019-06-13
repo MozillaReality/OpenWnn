@@ -26,6 +26,13 @@ import android.content.SharedPreferences;
  * @author Copyright (C) 2009, OMRON SOFTWARE CO., LTD.  All Rights Reserved.
  */
 public interface WnnEngine {
+    /*
+     * DEFINITION OF CONSTANTS
+     */
+    /** The identifier of the learning dictionary */
+    public static final int DICTIONARY_TYPE_LEARN = 1;
+    /** The identifier of the user dictionary */
+    public static final int DICTIONARY_TYPE_USER  = 2;
 
     /*
      * DEFINITION OF METHODS
@@ -33,7 +40,7 @@ public interface WnnEngine {
     /**
      * Initialize parameters.
      */
-    void init();
+    public void init();
 
     /**
      * Close the converter.
@@ -41,7 +48,7 @@ public interface WnnEngine {
      *
      * OpenWnn calls this method when it is destroyed.
      */
-    void close();
+    public void close();
 
     /**
      * Predict words/phrases.
@@ -51,7 +58,7 @@ public interface WnnEngine {
      * @param maxLen    The maximum length of a word to predict (-1 : no limit)
      * @return          Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
      */
-    int predict(ComposingText text, int minLen, int maxLen);
+    public int predict(ComposingText text, int minLen, int maxLen);
 
     /**
      * Convert a string.
@@ -66,7 +73,7 @@ public interface WnnEngine {
      * @param text      The input string
      * @return      Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
      */
-    int convert(ComposingText text);
+    public int convert(ComposingText text);
 
     /**
      * Search words from the dictionaries.
@@ -74,7 +81,15 @@ public interface WnnEngine {
      * @param key       The search key (stroke)
      * @return      Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
      */
-    int searchWords(String key);
+    public int searchWords(String key);
+
+    /**
+     * Search words from the dictionaries.
+     * <br>
+     * @param word      A word to search
+     * @return          Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
+     */
+    public int searchWords(WnnWord word);
 
     /**
      * Get a candidate.
@@ -88,14 +103,66 @@ public interface WnnEngine {
      *
      * @return          The candidate; {@code null} if there is no more candidate.
      */
-    WnnWord getNextCandidate();
+    public WnnWord getNextCandidate();
+
+    /**
+     * Retrieve the list of registered words.
+     * <br>
+     * @return          {@code null} if no word is registered; the array of {@link WnnWord} if some words is registered.
+     */
+    public WnnWord[] getUserDictionaryWords();
+
+    /**
+     * Learn a word. 
+     * <br>
+     * This method is used to register the word selected from
+     * candidates to the learning dictionary or update the frequency
+     * of the word.
+     *
+     * @param word      The selected word
+     * @return          {@code true} if success; {@code false} if fail or not supported.
+     */
+    public boolean learn(WnnWord word);
+
+    /**
+     * Register a word to the user's dictionary.
+     * <br>
+     * @param word      A word to register
+     * @return          Number of registered words in the user's dictionary after the operation; minus value if a error occurs.
+     */
+    public int addWord(WnnWord word);
+
+    /**
+     * Delete a word from the user's dictionary.
+     * <br>
+     * @param word      A word to delete
+     * @return          {@code true} if success; {@code false} if fail or not supported.
+     */
+    public boolean deleteWord(WnnWord word);
+
+    /**
+     * Delete all words from the user's dictionary.
+     * <br>
+     * @param dictionary    {@code DICTIONARY_TYPE_LEARN} or {@code DICTIONARY_TYPE_USER}
+     * @return              {@code true} if success; {@code false} if fail or not supported.
+     */
+    public boolean initializeDictionary(int dictionary);
+
+    /**
+     * Delete all words from the user's dictionary of the specified language.
+     * <br>
+     * @param dictionary        {@code DICTIONARY_TYPE_LEARN} or {@code DICTIONARY_TYPE_USER}
+     * @param type              Dictionary type (language, etc...)
+     * @return                  {@code true} if success; {@code false} if fail or not supported.
+     */
+    public boolean initializeDictionary(int dictionary, int type);
 
     /**
      * Reflect the preferences in the converter.
      *
      * @param pref  The preferences
      */
-    void setPreferences(SharedPreferences pref);
+    public void setPreferences(SharedPreferences pref);
 
     /**
      * Break the sequence of words.
@@ -105,7 +172,7 @@ public interface WnnEngine {
      * collocation between previous input words and words which will
      * input after this break.
      */
-    void breakSequence();
+    public void breakSequence();
 
     /**
      * Makes the candidate list.
@@ -118,5 +185,5 @@ public interface WnnEngine {
      * @param clausePosition  The position of a clause
      * @return                  Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
      */
-    int makeCandidateListOf(int clausePosition);
+    public int makeCandidateListOf(int clausePosition);
 }

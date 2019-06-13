@@ -29,35 +29,35 @@ public class OpenWnnDictionaryImplJni {
      * Constant about the approximate pattern (for JNI native library)
      *
      * @see jp.co.omronsoft.openwnn.WnnDictionary#APPROX_PATTERN_EN_TOUPPER
-     * @see OpenWnnDictionaryImplJni#setApproxPattern
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#setApproxPattern
      */
     public static final int APPROX_PATTERN_EN_TOUPPER               = WnnDictionary.APPROX_PATTERN_EN_TOUPPER;
     /**
      * Constant about the approximate pattern (for JNI native library)
      *
      * @see jp.co.omronsoft.openwnn.WnnDictionary#APPROX_PATTERN_EN_TOLOWER
-     * @see OpenWnnDictionaryImplJni#setApproxPattern
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#setApproxPattern
      */
     public static final int APPROX_PATTERN_EN_TOLOWER               = WnnDictionary.APPROX_PATTERN_EN_TOLOWER;
     /**
      * Constant about the approximate pattern (for JNI native library)
      *
      * @see jp.co.omronsoft.openwnn.WnnDictionary#APPROX_PATTERN_EN_QWERTY_NEAR
-     * @see OpenWnnDictionaryImplJni#setApproxPattern
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#setApproxPattern
      */
     public static final int APPROX_PATTERN_EN_QWERTY_NEAR           = WnnDictionary.APPROX_PATTERN_EN_QWERTY_NEAR;
     /**
      * Constant about the approximate pattern (for JNI native library)
      *
      * @see jp.co.omronsoft.openwnn.WnnDictionary#APPROX_PATTERN_EN_QWERTY_NEAR_UPPER
-     * @see OpenWnnDictionaryImplJni#setApproxPattern
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#setApproxPattern
      */
     public static final int APPROX_PATTERN_EN_QWERTY_NEAR_UPPER     = WnnDictionary.APPROX_PATTERN_EN_QWERTY_NEAR_UPPER;
     /**
      * Constant about the approximate pattern (for JNI native library)
      *
      * @see jp.co.omronsoft.openwnn.WnnDictionary#APPROX_PATTERN_JAJP_12KEY_NORMAL
-     * @see OpenWnnDictionaryImplJni#setApproxPattern
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#setApproxPattern
      */
     public static final int APPROX_PATTERN_JAJP_12KEY_NORMAL        = WnnDictionary.APPROX_PATTERN_JAJP_12KEY_NORMAL;
 
@@ -65,21 +65,21 @@ public class OpenWnnDictionaryImplJni {
      * Constant about the search operation (for JNI native library)
      *
      * @see jp.co.omronsoft.openwnn.WnnDictionary#SEARCH_EXACT
-     * @see OpenWnnDictionaryImplJni#searchWord
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#searchWord
      */
     public static final int SEARCH_EXACT                           = WnnDictionary.SEARCH_EXACT;
     /**
      * Constant about the search operation (for JNI native library)
      *
      * @see jp.co.omronsoft.openwnn.WnnDictionary#SEARCH_PREFIX
-     * @see OpenWnnDictionaryImplJni#searchWord
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#searchWord
      */
     public static final int SEARCH_PREFIX                          = WnnDictionary.SEARCH_PREFIX;
     /**
      * Constant about the search operation (for JNI native library)
      *
      * @see jp.co.omronsoft.openwnn.WnnDictionary#SEARCH_LINK
-     * @see OpenWnnDictionaryImplJni#searchWord
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#searchWord
      */
     public static final int SEARCH_LINK                            = WnnDictionary.SEARCH_LINK;
 
@@ -87,85 +87,85 @@ public class OpenWnnDictionaryImplJni {
      * Constant about the sort order (for JNI native library)
      *
      * @see jp.co.omronsoft.openwnn.WnnDictionary#ORDER_BY_FREQUENCY
-     * @see OpenWnnDictionaryImplJni#searchWord
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#searchWord
      */
     public static final int ORDER_BY_FREQUENCY                     = WnnDictionary.ORDER_BY_FREQUENCY;
     /**
      * Constant about the sort order (for JNI native library)
      *
      * @see jp.co.omronsoft.openwnn.WnnDictionary#ORDER_BY_KEY
-     * @see OpenWnnDictionaryImplJni#searchWord
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#searchWord
      */
     public static final int ORDER_BY_KEY                           = WnnDictionary.ORDER_BY_KEY;
 
     /**
      * Type of a part of speech (for JNI native library)
      * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_V1
-     * @see OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
-     * @see OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
      */
     public static final int POS_TYPE_V1                             = WnnDictionary.POS_TYPE_V1;
     /**
      * Type of a part of speech (for JNI native library)
      * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_V2
-     * @see OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
-     * @see OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
      */
     public static final int POS_TYPE_V2                             = WnnDictionary.POS_TYPE_V2;
     /**
      * Type of a part of speech (for JNI native library)
      * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_V3
-     * @see OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
-     * @see OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
      */
     public static final int POS_TYPE_V3                             = WnnDictionary.POS_TYPE_V3;
     /**
      * Type of a part of speech (for JNI native library)
      * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_BUNTOU
-     * @see OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
-     * @see OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
      */
     public static final int POS_TYPE_BUNTOU                         = WnnDictionary.POS_TYPE_BUNTOU;
     /**
      * Type of a part of speech (for JNI native library)
      * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_TANKANJI
-     * @see OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
-     * @see OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
      */
     public static final int POS_TYPE_TANKANJI                       = WnnDictionary.POS_TYPE_TANKANJI;
     /**
      * Type of a part of speech (for JNI native library)
      * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_SUUJI
-     * @see OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
-     * @see OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
      */
     public static final int POS_TYPE_SUUJI                          = WnnDictionary.POS_TYPE_SUUJI;
     /**
      * Type of a part of speech (for JNI native library)
      * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_MEISI
-     * @see OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
-     * @see OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
      */
     public static final int POS_TYPE_MEISI                          = WnnDictionary.POS_TYPE_MEISI;
     /**
      * Type of a part of speech (for JNI native library)
      * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_JINMEI
-     * @see OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
-     * @see OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
      */
     public static final int POS_TYPE_JINMEI                         = WnnDictionary.POS_TYPE_JINMEI;
     /**
      * Type of a part of speech (for JNI native library)
      * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_CHIMEI
-     * @see OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
-     * @see OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
      */
     public static final int POS_TYPE_CHIMEI                         = WnnDictionary.POS_TYPE_CHIMEI;
     /**
      * Type of a part of speech (for JNI native library)
      * @see jp.co.omronsoft.openwnn.WnnDictionary#POS_TYPE_KIGOU
-     * @see OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
-     * @see OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getLeftPartOfSpeechSpecifiedType
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getRightPartOfSpeechSpecifiedType
      */
     public static final int POS_TYPE_KIGOU                          = WnnDictionary.POS_TYPE_KIGOU;
 
@@ -189,6 +189,15 @@ public class OpenWnnDictionaryImplJni {
      * @return          0 if processing is successful; &#x3C;0 if an error occur
      */
     public static final native int freeWnnWork( long work );
+
+    /**
+     * Clear all dictionary information.
+     *
+     * @see jp.co.omronsoft.openwnn.WnnDictionary#clearDictionary
+     * @param work      The internal work area
+     * @return          0 if processing is successful; &#x3C;0 if an error occur
+     */
+    public static final native int clearDictionaryParameters( long work );
 
     /**
      * Set a dictionary information.
@@ -234,7 +243,7 @@ public class OpenWnnDictionaryImplJni {
     /**
      * Retrieve the key string from the current word information.
      *
-     * @see OpenWnnDictionaryImplJni#getNextWord
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getNextWord
      * @param work      The internal work area
      * @return          The Key string
      */
@@ -243,7 +252,7 @@ public class OpenWnnDictionaryImplJni {
     /**
      * Retrieve the candidate string from the current word information.
      *
-     * @see OpenWnnDictionaryImplJni#getNextWord
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getNextWord
      * @param work      The internal work area
      * @return          The candidate string
      */
@@ -252,7 +261,7 @@ public class OpenWnnDictionaryImplJni {
     /**
      * Retrieve the frequency from the current word information.
      *
-     * @see OpenWnnDictionaryImplJni#getNextWord
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#getNextWord
      * @param work      The internal work area
      * @return          The frequency
      */
@@ -386,6 +395,7 @@ public class OpenWnnDictionaryImplJni {
     public static final native int getNumberOfLeftPOS( long work );
     /**
      * Retrieve the number of the part of speeches at right side.
+     *
      * @param work                  The internal work area
      * @return              The number
      */
@@ -406,16 +416,16 @@ public class OpenWnnDictionaryImplJni {
      * @param work          The internal work area
      * @param type          The type of a part of speech
      * @return              0 if type is not found; &#x3C;0 if an error occur; &#x3E;0 The part of speech
-     * @see OpenWnnDictionaryImplJni#POS_TYPE_V1
-     * @see OpenWnnDictionaryImplJni#POS_TYPE_V2
-     * @see OpenWnnDictionaryImplJni#POS_TYPE_V3
-     * @see OpenWnnDictionaryImplJni#POS_TYPE_BUNTOU
-     * @see OpenWnnDictionaryImplJni#POS_TYPE_TANKANJI
-     * @see OpenWnnDictionaryImplJni#POS_TYPE_SUUJI
-     * @see OpenWnnDictionaryImplJni#POS_TYPE_MEISI
-     * @see OpenWnnDictionaryImplJni#POS_TYPE_JINMEI
-     * @see OpenWnnDictionaryImplJni#POS_TYPE_CHIMEI
-     * @see OpenWnnDictionaryImplJni#POS_TYPE_KIGOU
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#POS_TYPE_V1
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#POS_TYPE_V2
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#POS_TYPE_V3
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#POS_TYPE_BUNTOU
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#POS_TYPE_TANKANJI
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#POS_TYPE_SUUJI
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#POS_TYPE_MEISI
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#POS_TYPE_JINMEI
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#POS_TYPE_CHIMEI
+     * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#POS_TYPE_KIGOU
      */
     public static final native int getRightPartOfSpeechSpecifiedType( long work, int type );
 

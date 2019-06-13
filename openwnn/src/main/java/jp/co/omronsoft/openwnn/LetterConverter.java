@@ -37,12 +37,12 @@ public interface LetterConverter {
      * @param text      The text data includes input sequence(layer #0) and output area(layer #1)
      * @return      {@code true} if conversion is completed; {@code false} if not.
      */
-    boolean convert(ComposingText text);
+    public boolean convert(ComposingText text);
 
     /**
      * Reflect the preferences in the letter converter.
      *
      * @param pref      The preferences
      */
-    void setPreferences(SharedPreferences pref);
+    public void setPreferences(SharedPreferences pref);
 }

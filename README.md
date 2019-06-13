@@ -3,4 +3,4 @@ OpenWnn fork https://android.googlesource.com/platform/packages/inputmethods/Ope
 
 You can import it into your gradle build using:
 
-`implementation 'jp.co.omronsoft.openwnn:openwnn:1.3.6'`
+`implementation 'jp.co.omronsoft.openwnn:openwnn:1.3.7'`

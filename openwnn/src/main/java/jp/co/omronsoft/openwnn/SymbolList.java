@@ -38,14 +38,30 @@ public class SymbolList implements WnnEngine {
     /*
      * DEFINITION OF CONSTANTS
      */
+    /** Language definition (English) */
+    public static final int LANG_EN = 0;
+
     /** Language definition (Japanese) */
     public static final int LANG_JA = 1;
+
+    /** Language definition (Chinese) */
+    public static final int LANG_ZHCN = 2;
+
     
     /** Key string to get normal symbol list for Japanese */
     public static final String SYMBOL_JAPANESE = "j";
 
+    /** Key string to get normal symbol list for English */
+    public static final String SYMBOL_ENGLISH = "e";
+
+    /** Key string to get normal symbol list for Chinese */
+    public static final String SYMBOL_CHINESE = "c1";
+
     /** Key string to get face mark list for Japanese */
     public static final String SYMBOL_JAPANESE_FACE  = "j_face";
+
+    /** Key string to get candidates list for Candy applications */
+    public static final String SYMBOL_CANDY = "candy";
 
     /** The name of XML tag key */
     private static final String XMLTAG_KEY = "string";
@@ -147,16 +163,40 @@ public class SymbolList implements WnnEngine {
         return (mCurrentList != null);
     }
 
+    /**
+     * Set the candidates list of Candy applications
+     *
+     * @param candidates    The list of canidate
+     */
+    public void setCandy(ArrayList<String> candidates) {
+        ArrayList<String> storedCandidates = mSymbols.put(SYMBOL_CANDY, candidates);
+        if (storedCandidates != null) {
+            storedCandidates.clear();
+            storedCandidates = null;
+        }
+    }
+
+    /**
+     * Clear the candidates list of Candy applications
+     */
+    public void clearCandy() {
+        ArrayList<String> storedCandidates = mSymbols.remove(SYMBOL_CANDY);
+        if (storedCandidates != null) {
+            storedCandidates.clear();
+            storedCandidates = null;
+        }
+    }
+
     /***********************************************************************
      * WnnEngine's interface
      **********************************************************************/
-    /** @see WnnEngine#init */
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#init */
     public void init() {}
     
-    /** @see WnnEngine#close */
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#close */
     public void close() {}
     
-    /** @see WnnEngine#predict */
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#predict */
     public int predict(ComposingText text, int minLen, int maxLen) {
         /* ignore if there is no list for the type */
         if (mCurrentList == null) {
@@ -169,15 +209,18 @@ public class SymbolList implements WnnEngine {
         return 1;
     }
     
-    /** @see WnnEngine#convert */
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#convert */
     public int convert(ComposingText text) {
         return 0;
     }
     
-    /** @see WnnEngine#searchWords */
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#searchWords */
     public int searchWords(String key) {return 0;}
 
-    /** @see WnnEngine#getNextCandidate */
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#searchWords */
+    public int searchWords(WnnWord word) {return 0;}
+    
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#getNextCandidate */
     public WnnWord getNextCandidate() {
         if (mCurrentListIterator == null || !mCurrentListIterator.hasNext()) {
             return null;
@@ -187,13 +230,30 @@ public class SymbolList implements WnnEngine {
         return word;
     }
     
-    /** @see WnnEngine#setPreferences */
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#learn */
+    public boolean learn(WnnWord word) {return false;}
+    
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#addWord */
+    public int addWord(WnnWord word) {return 0;}
+
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#deleteWord */
+    public boolean deleteWord(WnnWord word) {return false;}
+    
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#setPreferences */
     public void setPreferences(SharedPreferences pref) {}
 
-    /** @see WnnEngine#breakSequence */
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#breakSequence */
     public void breakSequence() {}
 
-    /** @see WnnEngine#makeCandidateListOf */
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#makeCandidateListOf */
     public int makeCandidateListOf(int clausePosition) {return 0;}
 
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#initializeDictionary */
+    public boolean initializeDictionary(int dictionary) {return true;}
+
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#initializeDictionary */
+    public boolean initializeDictionary(int dictionary, int type) {return true;}
+    
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#getUserDictionaryWords */
+    public WnnWord[] getUserDictionaryWords() {return null;}
 }

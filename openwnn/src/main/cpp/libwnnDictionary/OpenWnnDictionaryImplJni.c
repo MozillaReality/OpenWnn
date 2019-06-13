@@ -228,7 +228,7 @@ JNIEXPORT jlong JNICALL Java_jp_co_omronsoft_openwnn_OpenWnnDictionaryImplJni_cr
 			return 0;
 		}
 
-		work->dicLibHandle = ( void* )dlopen( dicLibPath, RTLD_LAZY );
+		work->dicLibHandle = dlopen( dicLibPath, RTLD_LAZY );
 		( *env )->ReleaseStringUTFChars( env, dicLibPathJ, dicLibPath );
 
 		if( work->dicLibHandle == NULL ) {
