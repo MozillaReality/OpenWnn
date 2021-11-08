@@ -123,6 +123,9 @@ public class OpenWnnEngineJAJP implements WnnEngine {
     /** The candidate filter */
     private CandidateFilter mFilter = null;
 
+    /** The hiragana completer */
+    private RomkanCompleter mRomkanCompleter;
+
     public OpenWnnEngineJAJP() {
         this(null);
     }
@@ -155,6 +158,8 @@ public class OpenWnnEngineJAJP implements WnnEngine {
         /* converters */
         mClauseConverter = new OpenWnnClauseConverterJAJP();
         mKanaConverter = new KanaConverter();
+
+        mRomkanCompleter = new RomkanCompleter();
     }
 
     /**
@@ -329,7 +334,8 @@ public class OpenWnnEngineJAJP implements WnnEngine {
             return 0;
         }
 
-        mInputHiragana = input;
+        // auto complete hiragana
+        mInputHiragana = mRomkanCompleter.completeHiragana(input);
         mInputRomaji = text.toString(ComposingText.LAYER0);
 
         return input.length();
